@@ -69,21 +69,33 @@ return {
     end,
   },
 
-  -- Treesitter: resaltado de sintaxis preciso para Angular/TS/HTML/SCSS
-  -- Anclado a la rama master (API estable con .configs.setup); la rama main aún cambia.
+  -- Treesitter: resaltado de sintaxis preciso para Angular/TS/HTML/SCSS.
+  -- Rama `main` (la `master` está frozen y NO soporta Neovim 0.12+).
+  -- La API cambió: instalación con :install() y highlight con vim.treesitter.start().
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = "master",
+    branch = "main",
     build = ":TSUpdate",
+    lazy = false,
     config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = {
-          "typescript", "javascript", "tsx", "html", "css", "scss",
-          "json", "lua", "vim", "vimdoc", "markdown", "bash", "yaml",
-        },
-        highlight = { enable = true },
-        indent = { enable = true },
-        auto_install = true,
+      local langs = {
+        "typescript", "javascript", "tsx", "html", "css", "scss",
+        "json", "lua", "vim", "vimdoc", "markdown", "markdown_inline",
+        "bash", "yaml",
+      }
+      -- Instalar/actualizar los parsers que falten (asíncrono, no bloquea el arranque).
+      require("nvim-treesitter").install(langs)
+
+      -- Activar highlight + indent por filetype (reemplaza el viejo configs.setup).
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "typescript", "javascript", "typescriptreact", "tsx",
+          "html", "css", "scss", "json", "lua", "vim", "help",
+          "markdown", "sh", "bash", "yaml" },
+        callback = function()
+          pcall(vim.treesitter.start)
+          -- Indentación basada en treesitter (experimental pero útil para web).
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end,
       })
     end,
   },
