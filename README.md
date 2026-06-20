@@ -52,8 +52,9 @@ lazy.nvim instala todos los plugins en el primer arranque. Mason descarga los LS
 
 ## 🔧 Dependencias
 
-- **Neovim ≥ 0.11**
+- **Neovim ≥ 0.12** (lo exige la rama `main` de nvim-treesitter)
 - [`ripgrep`](https://github.com/BurntSushi/ripgrep) y [`fd`](https://github.com/sharkdp/fd) — para Telescope (`brew install ripgrep fd`)
+- [`tree-sitter`](https://github.com/tree-sitter/tree-sitter) CLI — para compilar parsers (`brew install tree-sitter-cli`)
 - **JDK 17** para el LSP de Java (`brew install openjdk@17`)
 - Una [Nerd Font](https://www.nerdfonts.com/) para los íconos.
 
