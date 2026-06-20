@@ -1,7 +1,7 @@
-# Datos de runtime de Neovim (instalados por lazy/mason, no son config)
-# La carpeta lua/ e init.lua SÍ se versionan; lazy-lock.json también (reproducibilidad).
-nvim/.netrwhist
-nvim/spell/
+# Datos de runtime de Neovim (no son config).
+# init.lua, lua/ y lazy-lock.json SÍ se versionan (este último para reproducibilidad).
+.netrwhist
+spell/
 
 # macOS
 .DS_Store

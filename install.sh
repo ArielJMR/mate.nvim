@@ -1,28 +1,24 @@
 #!/usr/bin/env bash
-# Crea los symlinks de la config de Vim/Neovim hacia este repo.
-# Hace backup (con sufijo .bak) de cualquier archivo/carpeta existente que no sea ya el symlink correcto.
+# Instala mate.nvim enlazando este repo a ~/.config/nvim.
+# Hace backup (con sufijo .bak) de cualquier config de Neovim existente.
 set -euo pipefail
 
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DEST="$HOME/.config/nvim"
 
-link() {
-  local src="$1" dest="$2"
-  # Ya está correctamente enlazado: nada que hacer.
-  if [ -L "$dest" ] && [ "$(readlink "$dest")" = "$src" ]; then
-    echo "ok    $dest -> $src"
-    return
-  fi
-  # Existe algo distinto: backup antes de pisar.
-  if [ -e "$dest" ] || [ -L "$dest" ]; then
-    echo "backup $dest -> $dest.bak"
-    mv "$dest" "$dest.bak"
-  fi
-  mkdir -p "$(dirname "$dest")"
-  ln -s "$src" "$dest"
-  echo "link  $dest -> $src"
-}
+# Ya está correctamente enlazado: nada que hacer.
+if [ -L "$DEST" ] && [ "$(readlink "$DEST")" = "$REPO_DIR" ]; then
+  echo "ok    $DEST -> $REPO_DIR"
+  exit 0
+fi
 
-link "$DOTFILES_DIR/.vimrc" "$HOME/.vimrc"
-link "$DOTFILES_DIR/nvim"   "$HOME/.config/nvim"
+# Existe una config previa: backup antes de pisar.
+if [ -e "$DEST" ] || [ -L "$DEST" ]; then
+  echo "backup $DEST -> $DEST.bak"
+  mv "$DEST" "$DEST.bak"
+fi
 
+mkdir -p "$(dirname "$DEST")"
+ln -s "$REPO_DIR" "$DEST"
+echo "link  $DEST -> $REPO_DIR"
 echo "Listo. Abrí nvim para que lazy.nvim instale los plugins."
