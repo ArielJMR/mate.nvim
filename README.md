@@ -7,7 +7,7 @@ Una configuración de **Neovim como IDE completo** — pensada para sentirse com
 ## ✨ Qué trae
 
 - **Gestor de plugins**: lazy.nvim con bootstrap automático — cloná y abrí, el resto se instala solo.
-- **LSP listo de fábrica**: Angular, TypeScript/JS, HTML, CSS/SCSS, JSON, ESLint, Java (jdtls) y Lua — instalados vía [Mason](https://github.com/williamboman/mason.nvim). Enable manual con `vim.lsp.enable()` + `root_markers` por servidor (Neovim 0.11+), pensado para monorepos (Nx) y proyectos Bun.
+- **LSP listo de fábrica**: Angular, TypeScript/JS, HTML, CSS/SCSS, JSON, Java (jdtls) y Lua — instalados vía [Mason](https://github.com/williamboman/mason.nvim). Enable manual con `vim.lsp.enable()` + `root_markers` por servidor (Neovim 0.11+), pensado para monorepos (Nx) y proyectos Bun. _Linting_ delegado a oxlint/biome (no ESLint); si tu proyecto usa ESLint, sumá `"eslint"` en `lua/plugins/lsp.lua`.
 - **Navegación tipo IDE**: Telescope (quick-open `<C-p>`, grep, símbolos del proyecto) + árbol de archivos (nvim-tree) que se abre solo al entrar a una carpeta.
 - **Sintaxis precisa**: Treesitter.
 - **Edición ágil**: autopairs, autotag (cierre de tags HTML/Angular), Comment.nvim, gitsigns.

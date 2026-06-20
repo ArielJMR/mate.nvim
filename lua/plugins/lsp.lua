@@ -1,4 +1,6 @@
--- LSP (Angular, TypeScript, HTML, CSS/SCSS, JSON, ESLint) + Mason para instalar servidores
+-- LSP (Angular, TypeScript, HTML, CSS/SCSS, JSON, Java, Lua) + Mason para instalar servidores
+-- Sin ESLint LSP a propósito: la distro asume linters modernos (oxlint/biome).
+-- Si tu proyecto usa ESLint, agregá "eslint" a ensure_installed y a vim.lsp.enable().
 return {
   {
     "williamboman/mason.nvim",
@@ -15,7 +17,6 @@ return {
           "html",
           "cssls",
           "jsonls",
-          "eslint",
           "jdtls",       -- Java (Eclipse JDT)
           "lua_ls",      -- Lua (para editar esta misma config)
         },
@@ -77,7 +78,7 @@ return {
       -- Habilitar los servidores instalados por Mason
       vim.lsp.enable({
         "angularls", "ts_ls", "html", "cssls", "jsonls",
-        "eslint", "jdtls", "lua_ls",
+        "jdtls", "lua_ls",
       })
     end,
   },
